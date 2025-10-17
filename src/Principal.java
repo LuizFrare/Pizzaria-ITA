@@ -1,36 +1,38 @@
-
 public class Principal {
+    public static void main(String[] args) {
+        Pizza p1 = new Pizza();
+        Pizza p2 = new Pizza();
+        Pizza p3 = new Pizza();
 
-	public static void main(String[] args) {
-		Pizza P1 = new Pizza();
-		Pizza P2 = new Pizza();
-		Pizza P3 = new Pizza();
-		
-		P1.adicionaIngrediente("Pepperoni");
-		P1.adicionaIngrediente("Mucarela");
-		P1.adicionaIngrediente("Manjericao");
-		
-		P2.adicionaIngrediente("Frango");
-		P2.adicionaIngrediente("Catupiry");
-		P2.adicionaIngrediente("Mucarela");
-		P2.adicionaIngrediente("Bacon");
-		
-		P3.adicionaIngrediente("Mucarela");
-		P3.adicionaIngrediente("Lombo");
-		P3.adicionaIngrediente("Cream Cheese");;
-		
-		CarrinhoDeCompras c = new CarrinhoDeCompras();
-		
-		
-		c.adicionarPizza(P1);
-		c.adicionarPizza(P2);
-		c.adicionarPizza(P3);
-	
-		System.out.println("H� no total " +c.pizzasTotais()+ " pizzas no carrinho");
-		System.out.println("Valor total " + c.getprecoFinal());
-		
-		System.out.println("Os ingredientes utilizados foram: " +Pizza.getListaIngredientes());
+        p1.adicionaIngrediente("Pepperoni");
+        p1.adicionaIngrediente("Mucarela");
+        p1.adicionaIngrediente("Manjericão");
 
-	}
+        p2.adicionaIngrediente("Frango");
+        p2.adicionaIngrediente("Catupiry");
+        p2.adicionaIngrediente("Mucarela");
+        p2.adicionaIngrediente("Bacon");
 
+        p3.adicionaIngrediente("Mucarela");
+        p3.adicionaIngrediente("Lombo");
+        p3.adicionaIngrediente("Cream Cheese");
+
+        CarrinhoDeCompras carrinho = new CarrinhoDeCompras();
+
+        carrinho.adicionarPizza(p1);
+        carrinho.adicionarPizza(p2);
+        carrinho.adicionarPizza(p3);
+
+        System.out.println("Há no total " + carrinho.getQuantidadePizzas() + " pizzas no carrinho.\n");
+
+        System.out.println("Detalhes das pizzas:");
+        System.out.println(carrinho); // usa o toString() do carrinho
+
+        System.out.println("\nResumo de ingredientes usados:");
+        for (var entry : Pizza.getListaIngredientes().entrySet()) {
+            System.out.println("- " + entry.getKey() + ": " + entry.getValue() + " vez(es)");
+        }
+
+        System.out.println("\nIngredientes totais usados: " + Pizza.getIngredientesTotais());
+    }
 }
