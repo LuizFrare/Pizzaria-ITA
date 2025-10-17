@@ -1,44 +1,70 @@
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
-
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class testePizza {
+public class TestePizza {
 
-	//Limpa os ingredientes
-	@Before
-	public void limparRegPizza() {
-	    Pizza.getListaIngredientes();
-	}
+    @BeforeEach
+    public void limparRegPizza() {
+        Pizza.resetarEstatisticas(); // zera os dados est√°ticos antes de cada teste
+    }
 
-	//Verifica se o preÁo est· correto
-	@Test
-	public void teste() {
-	    Pizza P1 = new Pizza();
-	    
-	    P1.adicionaIngrediente("MuÁarela");
-	    P1.adicionaIngrediente("Catupiry");
-	    P1.adicionaIngrediente("Pepperoni");
-	    P1.adicionaIngrediente("Manjeric„o");
-	    
-	    assertEquals(4, P1.getIngrediente().size());
-	}
+    // Verifica se o n√∫mero de ingredientes adicionados est√° correto
+    @Test
+    public void deveAdicionarIngredientesCorretamente() {
+        Pizza p1 = new Pizza();
 
-	//Analise se a contagem de ingredientes funcionou :D
-	@Test
-	public void testeIngredientes() {
-	    Pizza P1 = new Pizza();
-	    
-	    P1.adicionaIngrediente("MuÁarela");
-	    P1.adicionaIngrediente("Catupiry");
-	    P1.adicionaIngrediente("Pepperoni");
-	    P1.adicionaIngrediente("Manjeric„o");
-	    
-	    ArrayList<String> ingredientes = new ArrayList<String>();
-	    ingredientes.addAll(P1.getIngrediente());
-	    
-	    assertEquals(ingredientes, P1.getIngrediente());
-	}
+        p1.adicionaIngrediente("Mussarela");
+        p1.adicionaIngrediente("Catupiry");
+        p1.adicionaIngrediente("Pepperoni");
+        p1.adicionaIngrediente("Manjeric√£o");
+
+        assertEquals(4, p1.getIngrediente().size(), "Deveria ter 4 ingredientes na pizza");
+    }
+
+    // Verifica se a lista de ingredientes retornada √© a mesma
+    @Test
+    public void deveRetornarListaDeIngredientesCorreta() {
+        Pizza p1 = new Pizza();
+
+        p1.adicionaIngrediente("Mussarela");
+        p1.adicionaIngrediente("Catupiry");
+        p1.adicionaIngrediente("Pepperoni");
+        p1.adicionaIngrediente("Manjeric√£o");
+
+        ArrayList<String> esperados = new ArrayList<>();
+        esperados.add("mussarela");
+        esperados.add("catupiry");
+        esperados.add("pepperoni");
+        esperados.add("manjeric√£o");
+
+        assertEquals(esperados, p1.getIngrediente(), "Lista de ingredientes n√£o corresponde");
+    }
+
+    // Verifica se o pre√ßo √© calculado corretamente com base na quantidade de ingredientes
+    @Test
+    public void deveCalcularPrecoCorretamente() {
+        Pizza p1 = new Pizza();
+
+        p1.adicionaIngrediente("Mussarela");
+        p1.adicionaIngrediente("Catupiry");
+        p1.adicionaIngrediente("Bacon");
+
+        assertEquals(35.0, p1.getPreco(), 0.01, "Pre√ßo incorreto para 3 ingredientes");
+    }
+
+    // Verifica se o contador global de ingredientes funciona
+    @Test
+    public void deveContarIngredientesGlobais() {
+        Pizza p1 = new Pizza();
+        p1.adicionaIngrediente("Mussarela");
+        p1.adicionaIngrediente("Catupiry");
+
+        Pizza p2 = new Pizza();
+        p2.adicionaIngrediente("Bacon");
+
+        assertEquals(3, Pizza.getIngredientesTotais(), "Total de ingredientes globais incorreto");
+    }
 }
